@@ -1,0 +1,59 @@
+{% extends 'todidlist/base.html' %}
+
+{% load humanize %}
+
+{% block text %}
+<div>
+    <h3>
+    {{todo_list}}
+    </h3>
+</div>
+<div class="listitem">
+    <table class="todoitems">
+        <tr>
+            <th>
+                I need to
+            </th>
+            {% ifequal user todo_list.user %}
+            <th>
+                Edit this
+            </th>
+            {% endifequal %}
+            <th>
+                Complete?
+            </th>
+            <th>
+                Due by
+            </th>            
+        </tr>        
+        {% for item in todo_items %}
+        <tr>
+            <td><a href="{{item.get_absolute_url}}">{{item.item}}</a></td>
+            {% ifequal user todo_list.user %}
+            <td>
+            <span class="controls">
+                <a href="{{item.get_edit_url}}">Edit</a>
+            </span>
+            </td>
+            {% endifequal %}
+            <td>
+                {{item.completed|yesno:"Yes, No"}}
+            </td>
+            <td>
+                {% if item.complete_by %}
+                {{item.complete_by}}
+                {% endif %}
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+    <p>
+        <h3>
+            Stats for {{todo_list.list_name}}
+        </h3>
+        {{todo_list.list_name}} is a {% if todo_list.is_public %}public {% else %}non-public{%endif%} list and has {{completed_items|apnumber}} complete and {{uncomplete_items|apnumber}} in progress items.</br>
+                {% ifequal user todo_list.user %}<a href="{{todo_list.get_edit_url}}">Edit {{todo_list.list_name}}</a>. {% endifequal %}
+    </p>
+</div>
+{% endblock %}

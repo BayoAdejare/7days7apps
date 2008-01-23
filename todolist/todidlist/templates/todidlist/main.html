@@ -1,0 +1,41 @@
+{% extends 'todidlist/base.html' %}
+
+{% block main %}
+<div class="col">
+  <h2>About Us
+  </h2>
+<p>Todid list allows you to track your to do items. Its super secret, high performace alorithms make you productive in no time. As we say,
+<h3><a href="/create/">Supercharge your productivity</a></h3>
+</p>
+</div>
+<div class="col">
+  {% if user.is_authenticated %}
+  <h2>Your Todo Lists</h2>
+  <ul>
+  {% for todo_list in user_todo_lists %}
+  <li>
+  <a href="{{todo_list.get_absolute_url}}">{{todo_list.list_name}}</a>
+  </li>
+  {% endfor %}
+  </ul>
+  {% else %}
+  <p>
+    <a href="/accounts/login/">Login</a> or <a href="/accounts/create/">Register</a> to create a todo list and see all options.
+  </p>
+  {% endif %}
+<div class="clear"></div>  
+</div>
+<div class="col">
+<h2>Other poeples lives <span class="seo">Public Lists</span></h2>
+  <ul>
+  {% for todo_list in public_todo_lists %}
+  <li>
+  <a href="{{todo_list.get_absolute_url}}">{{todo_list.list_name}}</a>
+  </li>
+  {% endfor %}
+  </ul> 
+</div>
+<div class="clear"></div>
+</div>
+
+{% endblock %}

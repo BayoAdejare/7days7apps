@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+        {% block title %}
+        Todidlist
+        {% endblock %}
+</title>
+<link href="/site_media/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrap">
+<div id="top">
+<h1 id="sitename"><a href="/">
+               {% block header %}
+               Todolist
+               {% endblock %} 
+</a></h1> 
+<ul id="topmenu">
+                    {% block topbar %}
+                    <ul>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <span class="greets">
+                                Howdy {{user.username}}!
+                            </span>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="/">Main</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="/create/">New list</a>
+                        </li>
+                        <li>
+                            <a href="/accounts/profile/">Profile </a>
+                        </li>
+                        <li>
+                            <a href="/accounts/logout/">Logout </a>
+                        </li>                        
+                        {% else %}
+                        <li>
+                            <a href="/accounts/login/">Login </a>
+                        </li>
+                        <li>
+                            <a href="/accounts/create/">or Register </a>
+                        </li>                         
+                        {% endif %}
+                    </ul>
+                    {% endblock %}
+</ul>
+</div>
+<div id="header">
+                    {% block logo %}
+<h2 class="description">Todidlist. <span>Supercharge your productivity!</span></h2>                    
+                    {% endblock %}
+</div>
+
+<div id="main">
+  {% block main %}
+  <div id="content">
+                    {% block text %}
+                    {% endblock %}
+  </div>
+  <div id="sidebar">
+                    {% block sidebar %}
+                    <h3>
+                        My lists
+                    </h3>
+                    <ul>
+                        {% for todo in todo_lists_ %}
+                        <li>
+                            <a href="{{todo.get_absolute_url}}">{{todo.list_name}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <h3>
+                        Meta
+                    </h3>
+                    <ul>
+                        <li>
+                            <a href="/">Main</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="/create/">New list</a>
+                        </li>
+                        <li>
+                            <a href="/accounts/profile/">Profile </a>
+                        </li>
+                        <li>
+                            <a href="/accounts/logout/">Logout </a>
+                        </li>                        
+                        {% else %}
+                        <li>
+                            <a href="/accounts/login/">Login </a>
+                        </li>
+                        <li>
+                            <a href="/accounts/create/">or Register </a>
+                        </li>                         
+                        {% endif %}
+                    </ul>                    
+                    {% endblock %}
+  </div>
+  <div class="clear"></div>
+  {% endblock %}
+</div>
+
+
+
+
+</div>
+
+<div id="footer">
+<div id="footercontents">
+                {% block footer %}
+<a href="http://ramblingsoul.com">CSS Template</a> by Rambling Soul</div>                
+                {% endblock %}
+</div>
+
+</body>
+</html>

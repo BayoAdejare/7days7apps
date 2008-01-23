@@ -1,0 +1,27 @@
+{% extends 'todidlist/base.html' %}
+
+{% block text %}
+
+<div>
+    <h3>
+    Create a new list.
+    </h3>
+</div> 
+<form action="." method="post">
+    {% for field in form %}
+    <p>        
+        {{ field.label_tag }}
+        {{field}}
+        {% if field.help_text %}<span class="help">{{ field.help_text }}</span>{% endif %}
+        {% if field.errors %} <span class="error">{{ field.errors }} </span> {% endif %}
+    </p>
+    {% endfor %}
+    <p>
+    <label for="Submit"><span class="hide">Submit</span></label>
+    <input name="Submit" type="submit" class="button" value="Create" />
+    </p>
+</form>
+    <a href="{{more_choices_url}}">Get more choices</a>
+
+<div class="clear2"></div>
+{% endblock %}

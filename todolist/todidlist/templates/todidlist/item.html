@@ -1,0 +1,44 @@
+{% extends 'todidlist/base.html' %}
+
+{% block text %}
+<div class="listheader">
+    <h3>
+    {{todo_list}}
+    </h3>
+</div>
+<div class="listitem">
+    <table class="detailtable">
+        <tr>
+            <td>
+                Item:
+            </td>
+            <td>
+                {{todo_item.item}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description:
+            </td>
+            <td>
+                {{todo_item.description}}
+            </td>
+        <tr>
+            <td>
+                Completed?
+            </td>
+            <td>
+                {{todo_item.completed|yesno:"Yes, No"}}
+            </td>
+        </tr>
+        <tr>
+            <td>Worth Doing?
+            </td>
+            <td>
+                {{todo_item.worth_doing|yesno:"Yes, No"}}
+            </td>
+        </tr>                    
+        </tr>        
+    </table>
+</div>
+{% endblock %}
