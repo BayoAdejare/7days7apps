@@ -1,0 +1,31 @@
+{% extends 'todidlist/base.html' %}
+
+{% block text %}
+   <table>
+    <th>
+        Lists in Progress
+    </th>
+   {% for todo_list in todo_list_incomplete %}
+   <tr>
+    <td>
+    <a href="{{todo_list.get_absolute_url}}">{{todo_list.list_name}}</a>
+    </td>
+   </tr>
+   {% endfor %}
+   
+   </table>
+   
+   <table>
+    <th>
+        Lists Completed
+    </th>
+   {% for todo_list in todo_list_complete %}
+   <tr>
+    <td>
+    <a href="{{todo_list.get_absolute_url}}">{{todo_list.list_name}}</a>
+    </td>
+   </tr>
+   {% endfor %}
+   
+   </table>   
+{% endblock %}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="a39a4734-c2ce-4afa-bbfe-2bd8f6b83bc5" kpf_version="4" name="todolist.kpf">
+<file id="44ab18a4-eac8-438f-ac30-ee2ceddf9a56" idref="a39a4734-c2ce-4afa-bbfe-2bd8f6b83bc5/todidlist" name="details.html" url="todidlist/templates/todidlist/details.html">
+</file>
+<preference-set idref="a39a4734-c2ce-4afa-bbfe-2bd8f6b83bc5">
+  <boolean id="import_live">1</boolean>
+</preference-set>
+</project>
