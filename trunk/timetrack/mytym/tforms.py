@@ -35,15 +35,24 @@ class EntryForm(forms.Form):
         super(EntryForm, self).__init__(*args, **kwargs)
         self.user = user
         jobs = Job.objects.filter(user = self.user)
-        self.fields['jobs'].choices = [('', '--')] + [(job.name, job.name) for job in jobs]
+        self.fields['job'].choices = [('', '--')] + [(job.name, job.name) for job in jobs]
+        
+    def save(self):
+        job = Job.objects.get(name = self.cleaned_data['job'])
+        tag, created = Tag.objects.get_or_create(name=self.cleaned_data['tag'], user = self.user)
+        entry = Entry(job = job, name = self.cleaned_data['name'], tag = tag, date=self.cleaned_data['date'], \
+                    hours_worked = self.cleaned_data['hours_worked'], minutes_worked = self.cleaned_data['minutes_worked'], \
+                    description = self.cleaned_data['minutes_worked'])
+        entry.save()
+        return entry
     
-    jobs = forms.ChoiceField()
+    job = forms.ChoiceField()
     name = forms.CharField(max_length = 100)
     tag = forms.CharField(max_length = 100)
     date = forms.DateField()
     hours_worked = forms.IntegerField()
     minutes_worked = forms.IntegerField()
-    description = forms.CharField(required = False)
+    description = forms.CharField(required = False, widget=forms.Textarea)
     
 class FormCollection:
     def __init__(self, FormClass, attrs, num_form):
