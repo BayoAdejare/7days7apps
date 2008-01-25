@@ -30,6 +30,10 @@ class Job(models.Model):
         row = cursor.fetchone()
         return int(row[0])
     
+    def num_events(self):
+        """Number of ebents for this job."""
+        return Entry.objects.filter(job = self).count()
+    
     def __str__(self):
         return self.name
     
@@ -40,7 +44,7 @@ class Job(models.Model):
         pass
     
     class Meta:
-        ordering = ('-created_on', )
+        ordering = ('created_on', )
     
 class Entry(models.Model):
     """Detailed data about a job. Each time you want to work on a job, you would like to add an entry here."""
@@ -53,6 +57,9 @@ class Entry(models.Model):
     minutes_worked = models.PositiveIntegerField(default = 0)
     description = models.TextField(null = True)
     
+    def time_worked(self):
+        return self.hours_worked + self.minutes_worked/60
+    
     def get_absolute_url(self):
         return '/entrydetails/%s/' % self.id    
     
@@ -63,7 +70,7 @@ class Entry(models.Model):
         pass
     
     class Meta:
-        ordering = ('-created_on', )    
+        ordering = ('created_on', )    
     
     
     

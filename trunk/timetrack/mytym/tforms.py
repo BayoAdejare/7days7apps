@@ -42,7 +42,7 @@ class EntryForm(forms.Form):
         tag, created = Tag.objects.get_or_create(name=self.cleaned_data['tag'], user = self.user)
         entry = Entry(job = job, name = self.cleaned_data['name'], tag = tag, date=self.cleaned_data['date'], \
                     hours_worked = self.cleaned_data['hours_worked'], minutes_worked = self.cleaned_data['minutes_worked'], \
-                    description = self.cleaned_data['minutes_worked'])
+                    description = self.cleaned_data['description'])
         entry.save()
         return entry
     

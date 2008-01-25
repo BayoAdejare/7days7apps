@@ -1,1 +1,1 @@
-num_rows = 5
+num_rows = 3
