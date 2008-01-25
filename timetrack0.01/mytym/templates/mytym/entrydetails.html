@@ -1,0 +1,55 @@
+{% extends 'mytym/base.html' %}
+
+{% block content %}
+    <div class="posthead">
+        <h3>
+            Details for {{entry.name}}
+        </h3>
+    </div>
+  <table>
+    <tr>
+        <th>Name
+        </th>
+        <td>
+            <a href="{{entry.get_absolute_url}}">{{entry.name}}</a>
+        </td>
+    </tr>
+    <tr>
+        <th>Job
+        </th>
+        <td>
+            <a href="{{entry.job.get_absolute_url}}">{{entry.job.name}}</a>
+        </td>
+    </tr>
+    <tr>
+        <th>Category
+        </th>
+        <td>
+            <a href="{{entry.tag.get_absolute_url}}">{{entry.tag.name}}</a>
+        </td>
+    </tr>     
+    <tr>
+        <th>
+            Date
+        </th>
+        <td>
+            {{entry.date}}
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Time worked
+        </th>
+        <td>
+            {{entry.time_worked}} Hours
+        </td>
+    </tr>
+    <tr>
+        <th>Description
+        </th>
+        <td>
+            {{entry.description}}
+        </td>
+    </tr>    
+  </table>
+{% endblock %}
