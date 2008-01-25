@@ -8,6 +8,7 @@ urlpatterns = patterns('mytym.views',
     (r'^addentry/$', 'detailed_entry'),
     (r'^jobdetails/(?P<id>\d+)/$', 'job_details'),
     (r'^entrydetails/(?P<id>\d+)/$', 'entry_details'),
+    (r'^category/(?P<id>\d+)/$', 'category'),
 
     # Uncomment this for admin:
     (r'^admin/', include('django.contrib.admin.urls')),

@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic.simple import direct_to_template
+#from django.views.generic.simple import object_list
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -87,8 +87,21 @@ def detailed_entry(request):
 
 def entry_details(request, id):
     entry = Entry.objects.get(id = id)
-    payload = {'entry':'entry'}
+    payload = {'entry':entry}
     return render(request, 'mytym/entrydetails.html', payload)
+
+def category(request, id):
+    tag = Tag.objects.get(id = id)
+    entries = Entry.objects.filter(tag = tag)
+    jobs = Job.objects.filter(default_tag = tag)
+    payload = {'tag':tag, 'events':entries, 'jobs':jobs}
+    return render(request, 'mytym/category.html', payload)
     
 def render(request, template, payload):
+    payload.update(get_sidebar_data())
     return render_to_response(template, payload, RequestContext(request))
+
+def get_sidebar_data():
+    recent_jobs = Job.objects.all()[:5]
+    recent_categories = Tag.objects.all()[:5]
+    return {'recent_jobs':recent_jobs,'recent_categories':recent_categories}

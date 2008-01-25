@@ -70,38 +70,31 @@
 </div>
 <div class="sidebarcol">
   {% block sidebar1 %}
-<h2>Pages</h2>
+<h2>Jobs</h2>
 <ul class="normalmenu">
-<li><a href="index.html">Welcome Page</a></li>
-<li><a href="tables.html">Tables Example</a></li>
-<li><a href="forms.html">Forms Example</a></li>
-<li><a href="#nogo">No Go Link</a></li>
+  {% for job in recent_jobs %}
+  <li><a href="{{job.get_absolute_url}}">{{job.name}}</a></li> 
+  {% endfor %}
 </ul>
 </div>
 <div class="sidebarcol">
 <h2>Categories</h2>
 <ul class="normalmenu">
-<li><a href="#nogo">Web Design</a></li>
-<li><a href="#nogo">Graphic Design</a></li>
-<li><a href="#nogo">CSS &amp; XHTML</a></li>
-<li><a href="#nogo">Wordpress</a></li>
-
+  {% for category in recent_categories %}
+  <li><a href="{{category.get_absolute_url}}">{{category.name}}</a></li>
+  {% endfor %}
 </ul>
 </div>
 <p class="clear2"></p>  
   {% endblock %}
   
   {% block sidebar2 %}
-<h2>Recent Posts</h2>
+<h2>Actions</h2>
   <ul class="posts">
-    <li><a href="#">
-      Donec mattis metus eget dui. </a></li>
-    <li><a href="#">Sed egestas suscipit risus. </a></li>
-    <li><a href="#">Nulla odio nunc, consectetuer ut</a></li>
-    <li><a href="#"> placerat eleifend, vestibulum eget, justo. </a></li>
-    <li><a href="#">Morbi non elit. Suspendisse iaculis nisi.</a></li>
-    <li><a href="#"> Curabitur nulla. </a></li>
-    <li><a href="#">Maecenas scelerisque convallis arcu. </a></li>
+    <li><a href="/jobs/">
+      View/Add jobs </a></li>
+    <li><a href="/entries/">View/Add entries </a></li>
+    <li><a href="/addentry/">Add detailed entry</a></li>
   </ul>  
   {% endblock %}
   
