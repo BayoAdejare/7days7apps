@@ -15,6 +15,7 @@
                 {{form.hours_worked.label_tag}}
             </th>            
         </tr>
+        {% for form in forms %}
         <tr>
             <td>
                {{form.job}}
@@ -28,16 +29,40 @@
                {{form.hours_worked}}
                {{form.hours_worked.errors.0}}
             </td>            
-        </tr>
+        </tr>        
+        {% endfor %}
     </table> 
     <input type="submit" name="submit" value="Create Job" />
 </form>
 </div>
 
 <div class="post">
+    <table>
+        <tr>
+            <th>
+                Job Name
+            </th>
+            <th>
+                Event Name
+            </th>
+            <th>
+                Hours worked
+            </th>            
+        </tr>
     {%for entry in entries %}
-        {{entry}}
+        <tr>
+            <td>
+               <a href="{{entry.job.get_absolute_url}}">{{entry.job.name}}</a>
+            </td>
+            <td>                
+               <a href="{{entry.get_absolute_url}}">{{entry.name}}</a>
+            </td>
+            <td>                
+               {{entry.hours_worked}}
+            </td>            
+        </tr>   
     {% endfor %}
+    </table>
 </div>
 
 

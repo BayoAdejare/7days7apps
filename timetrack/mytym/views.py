@@ -13,55 +13,82 @@ def index(request):
 def handle_jobs(request):
     """Creates jobs and displays the Jobs page"""
     if request.method == 'POST':
-        form = tforms.JobsForm(request.POST)
-        if form.is_valid():
-            form.set_user(request.user)
-            job = form.save()
-            return HttpResponseRedirect('.')
+        num_rows = request.session['num_rows']
+        del request.session['num_rows']        
+        forms = tforms.FormCollection(tforms.JobsForm, {'data':request.POST}, num_form = num_rows).data
+        for form in forms:
+            if form.is_valid():
+                form.set_user(request.user)
+                job = form.save()
+        return HttpResponseRedirect('.')
     if request.method == 'GET':
-        form = tforms.JobsForm()
+        num_rows = defaults.num_rows
+        request.session['num_rows'] = num_rows        
+        forms = tforms.FormCollection(tforms.JobsForm, {}, num_form = num_rows).data
+        form = forms[0]
     jobs = Job.objects.all()
-    payload = {'form':form, 'jobs':jobs}
+    payload = {'form':form, 'jobs':jobs, 'forms':forms}
     return render(request, 'mytym/jobs.html', payload)
 
-"""
-def handle_entries(request):
-    "Creates entries fro jobs and displays the entries page"
-    if request.method == 'POST':        
-        form = tforms.EntryFormQuick(user = request.user, data=request.POST, prefix='xd')
-        print request.POST
-        print form.fields
-        if form.is_valid():
-            entry = form.save()
-            return HttpResponseRedirect('.')
+def job_details(request, id):
+    if request.method == 'POST':
+        num_rows = request.session['num_rows']
+        del request.session['num_rows']
+        forms = tforms.FormCollection(tforms.EntryFormQuick, {'user':request.user, 'data':request.POST}, num_form = num_rows).data
+        for form in forms:
+            if form.is_valid():
+                job = form.save()
+        return HttpResponseRedirect('.')
     if request.method == 'GET':
-        form = tforms.EntryFormQuick(user=request.user, prefix='xd')
-        #form2 = tforms.EntryFormQuick(request.user, prefix='xd')
-    entries = Entry.objects.all()
-    payload = {'form':form, 'entries':entries}
-    return render(request, 'mytym/entries.html', payload)
-"""
+        num_rows = defaults.num_rows
+        request.session['num_rows'] = num_rows    
+        job = Job.objects.get(id = id)
+        entries = Entry.objects.filter(job = job)
+        forms = tforms.FormCollection(tforms.EntryFormQuick, dict(user=request.user, initial = {'job':job.name}), num_form = num_rows).data
+        form = forms[0]
+        payload = {'job':job, 'entries':entries, 'forms':forms, 'form':form}
+        return render(request, 'mytym/job.html', payload)
+
 def handle_entries(request):
-    """Creates entries fro jobs and displays the entries page"""
-    if request.method == 'POST':        
-        form = tforms.EntryFormQuick(user = request.user, data=request.POST, prefix='xd')
-        print request.POST
-        print form.fields
-        if form.is_valid():
-            entry = form.save()
-            return HttpResponseRedirect('.')
+    """Creates entries from jobs and displays the entries page"""
+    if request.method == 'POST':
+        num_rows = request.session['num_rows']
+        del request.session['num_rows']
+        forms = tforms.FormCollection(tforms.EntryFormQuick, dict(user=request.user, data=request.POST), num_form = num_rows).data
+        for form in forms:    
+            if form.is_valid():
+                entry = form.save()
+        return HttpResponseRedirect('.')
     if request.method == 'GET':
-        forms = tforms.FormCollection(tforms.EntryFormQuick, dict(user=request.user), num_form = 10)
-        #form2 = tforms.EntryFormQuick(request.user, prefix='xd')
+        num_rows = defaults.num_rows
+        request.session['num_rows'] = num_rows
+        forms = tforms.FormCollection(tforms.EntryFormQuick, dict(user=request.user,), num_form = num_rows).data        
     entries = Entry.objects.all()
-    form = forms.data[0]
-    print form
+    form = forms[0]
     payload = {'forms':forms, 'entries':entries, 'form':form}
     return render(request, 'mytym/entries.html', payload)
 
-    
-def get_multi_form():
-    pass
+def detailed_entry(request):
+    """Creates entries for jobs."""
+    if request.method == 'POST':
+        print request.POST
+        form = tforms.EntryForm(request.user, request.POST)
+        if form.is_valid():
+            entry = form.save()
+            try:
+                request.POST['Save']
+                return HttpResponseRedirect('.')
+            except KeyError, e:
+                return HttpResponseRedirect(entry.job.get_absolute_url())            
+    if request.method == 'GET':
+        form = tforms.EntryForm(request.user)
+    payload = {'form':form}
+    return render(request, 'mytym/entry.html', payload)
+
+def entry_details(request, id):
+    entry = Entry.objects.get(id = id)
+    payload = {'entry':'entry'}
+    return render(request, 'mytym/entrydetails.html', payload)
     
 def render(request, template, payload):
     return render_to_response(template, payload, RequestContext(request))

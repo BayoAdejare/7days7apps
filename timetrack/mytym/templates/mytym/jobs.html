@@ -3,15 +3,58 @@
 {% block content %}
 <div class="post">
 <form action="." method="post">
-    {{form.as_p}}
+    <table>
+        <tr>
+            <th>
+                Job Name
+            </th>
+            <th>
+                Category
+            </th>
+        </tr>
+        {% for form in forms %}
+        <tr>
+            <td>
+                {{form.name}}
+            </td>
+            <td>
+                {{form.default_tag}}
+            </td>
+        </tr>        
+        {% endfor %}
+    </table>
     <input type="submit" name="submit" value="Create Job" />
 </form>
 </div>
 
 <div class="post">
+    <table>
+        <tr>
+            <th>
+                Job Name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Total time spent
+            </th>
+        </tr>
     {%for job in jobs %}
-        {{job}}
+        <tr>
+            <td>
+                <a href="{{job.get_absolute_url}}">{{job.name}}</a>
+            </td>
+            <td>
+                <a href="{{job.default_tag.get_absolute_url}}">{{job.default_tag}}</a>
+            </td>
+            <td>
+                {{job.total_hrs_worked}}
+            </td>
+        </tr>
     {% endfor %}
+    </table>    
+
 </div>
 
 
