@@ -1,4 +1,17 @@
 {% extends 'mytym/base.html' %}
 
+{% block content %}
+<div id="post">
+    <div class="posthead">
+        <h2><span>MyTym</span> Time is short, waste it wisely</h2>
+    </div>
+    
+    MyTym is a personal time tracking application. It allows you to keep track of your time, and show where you use your time to cut throgh the clutter.
+    Oh, and it got <strong>rounded corners</strong> too!<br />
+    {% if not user.is_authenticated %}
+       So what are you waiting for? <a href="/accounts/login/">Login</a> or <a href="/accounts/register/">Register</a>
+    {% endif %}
 
+</div>
+{% endblock %}
 

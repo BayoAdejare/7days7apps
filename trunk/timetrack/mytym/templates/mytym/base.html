@@ -59,13 +59,20 @@
 
 
 <div id="sidebar">
+  {% block sidebar %}
   
 <div class="sidebarcontent">
 <div class="sidebarbox">
   {% block about %}
-<h2>About</h2>
-
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam commodo ornare massa. Vivamus eu nisi. Pellentesque non quam a mauris lacinia condimentum. Nulla facilisi. Fusce malesuada, ligula ac vehicula lobortis, sapien augue ultrices eros, at imperdiet mi lorem nec ipsum. Cras hendrerit blandit enim. <a href="#">Read More</a></p>  
+  {% if user.is_authenticated %}
+  Howdy, {{user.username}}!
+  {% else %}
+  <form action="/accounts/login/">
+    <input type="textinput" value="username" name="username" />
+    <input type="password" value="password" name="password" />
+    <input type="submit" value="login" name="submit" />
+  </form>
+  {% endif %}
   {% endblock %}
 </div>
 <div class="sidebarcol">
@@ -91,11 +98,17 @@
   {% block sidebar2 %}
 <h2>Actions</h2>
   <ul class="posts">
+    {% if user.is_authenticated %}
     <li><a href="/jobs/">
       View/Add jobs </a></li>
     <li><a href="/entries/">View/Add entries </a></li>
     <li><a href="/addentry/">Add detailed entry</a></li>
-  </ul>  
+    <li><a href="/accounts/logout/">Logout</a></li>
+    {% else %}
+    <li><a href="/accounts/login/">Login</a></li>
+    <li><a href="/accounts/register/">Register</a></li>
+    {% endif %}
+    </ul>
   {% endblock %}
   
   </div>
@@ -104,8 +117,9 @@
 <div class="sidebarbtm"></div>
 
 </div>
-
+  {% endblock %}
 <div class="clear"></div>
+
 
 
 </div>

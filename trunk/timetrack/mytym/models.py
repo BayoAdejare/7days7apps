@@ -70,7 +70,27 @@ class Entry(models.Model):
         pass
     
     class Meta:
-        ordering = ('created_on', )    
+        ordering = ('created_on', )
+        
+
+#helpers
+def total_worked(user):
+    cursor = connection.cursor()
+    cursor.execute("SELECT sum(hours_worked) FROM mytym_entry, mytym_job, auth_user WHERE mytym_entry.job_id = mytym_job.id AND auth_user.id = mytym_job.user_id AND auth_user.id = %s", [user.id])
+    row = cursor.fetchone()
+    return int(row[0])
+
+def job_worked(user):
+    cursor = connection.cursor()
+    cursor.execute("SELECT mytym_job.name, sum(hours_worked) FROM mytym_entry, mytym_job, auth_user WHERE mytym_entry.job_id = mytym_job.id AND auth_user.id = mytym_job.user_id AND auth_user.id = %s GROUP BY mytym_job.name ", [user.id])
+    job_hours = cursor.fetchall()
+    cursor.execute("SELECT mytym_tag.name, sum(hours_worked) FROM mytym_entry, mytym_tag, auth_user WHERE mytym_entry.tag_id = mytym_tag.id AND auth_user.id = mytym_tag.user_id AND auth_user.id = %s GROUP BY mytym_tag.name ", [user.id])
+    tag_hours = cursor.fetchall()
+    return job_hours, tag_hours
+    
+    
+    
+    
     
     
     
