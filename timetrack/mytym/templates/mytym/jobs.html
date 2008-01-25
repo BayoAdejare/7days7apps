@@ -1,0 +1,19 @@
+{% extends 'mytym/base.html' %}
+
+{% block content %}
+<div class="post">
+<form action="." method="post">
+    {{form.as_p}}
+    <input type="submit" name="submit" value="Create Job" />
+</form>
+</div>
+
+<div class="post">
+    {%for job in jobs %}
+        {{job}}
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
