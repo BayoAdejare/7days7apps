@@ -1,0 +1,73 @@
+{% extends 'mytym/base.html' %}
+
+{% block content %}
+<div class="post">
+    <div class="posthead">
+        <h3>
+            Add jobs.
+        </h3>
+        Enter as many rows as needed.
+    </div>
+<form action="." method="post">
+    <table>
+        <tr>
+            <th>
+                Job Name
+            </th>
+            <th>
+                Category
+            </th>
+        </tr>
+        {% for form in forms %}
+        <tr>
+            <td>
+                {{form.name}}
+            </td>
+            <td>
+                {{form.default_tag}}
+            </td>
+        </tr>        
+        {% endfor %}
+    </table>
+    <input type="submit" name="submit" value="Create Job" />
+</form>
+</div>
+
+<div class="post">
+    <div class="posthead">
+        <h3>
+          Existing  Jobs.
+        </h3>
+    </div>
+    <table>
+        <tr>
+            <th>
+                Job Name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Total time spent
+            </th>
+        </tr>
+    {%for job in jobs %}
+        <tr>
+            <td>
+                <a href="{{job.get_absolute_url}}">{{job.name}}</a>
+            </td>
+            <td>
+                <a href="{{job.default_tag.get_absolute_url}}">{{job.default_tag}}</a>
+            </td>
+            <td>
+                {{job.total_hrs_worked}}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>    
+
+</div>
+
+
+
+{% endblock %}

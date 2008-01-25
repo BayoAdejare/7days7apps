@@ -1,0 +1,33 @@
+{% extends 'mytym/base.html' %}
+
+{% block content %}
+<div class="post">
+    <div class="posthead">
+        <h2>{{tag.name}}</h2>
+    </div>
+</div>
+<div class="post">
+    <div class="posthead">
+        <h3>Jobs with default tag {{tag.name}}</h3>
+    </div>
+    <ul>
+    {% for job in jobs%}
+        <li>
+        <a href="{{job.get_absolute_url}}">{{job.name}}</a>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+<div class="post">
+    <div class="posthead">
+        <h3>Events with tag {{tag.name}}</h3>
+    </div>
+    <ul>
+    {% for event in events %}
+        <li>
+        <a href="{{event.get_absolute_url}}">{{event}}</a>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

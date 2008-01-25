@@ -1,0 +1,90 @@
+{% extends 'mytym/base.html' %}
+
+{% block content %}
+<div class="post">
+    <div class="posthead">
+        <h2>{{job.name}}</h2>
+        <p>
+            <ul>
+                <li>Total time spent: {{job.total_hrs_worked}} hours</li>
+                <li>Number of events: {{job.num_events}}</li>
+                <li>Default category: <a href="{{job.default_tag.get_absolute_url}}">{{job.default_tag}}</a></li>
+            </ul>
+        </p>
+    </div>
+</div>
+<div class="post">
+    <div class="posthead">
+        <h3>Add events to this job.</h3>
+        <a href="/addentry/">See more options</a>
+    </div>    
+<form action="." method="post">
+    <table>
+        <tr>
+            <th>
+                {{form.job.label_tag}}
+            </th>
+            <th>
+                {{form.name.label_tag}}
+            </th>
+            <th>
+                {{form.hours_worked.label_tag}}
+            </th>            
+        </tr>
+        {% for form in forms %}
+        <tr>
+            <td>
+               {{form.job}}
+               {{form.job.errors.0}}
+            </td>
+            <td>                
+               {{form.name}}
+               {{form.name.errors.0}}
+            </td>
+            <td>                
+               {{form.hours_worked}}
+               {{form.hours_worked.errors.0}}
+            </td>            
+        </tr>        
+        {% endfor %}
+    </table> 
+    <input type="submit" name="submit" value="Add event" />
+</form>
+</div>
+
+<div class="post">
+    <div class="posthead">
+        <h3>Events for this job.</h3>
+    </div>     
+    <table>
+        <tr>
+            <th>
+                Event Name
+            </th>
+            <th>
+                Event Date
+            </th>
+            <th>
+                Time spent
+            </th>
+        </tr>
+    {%for event in entries %}
+        <tr>
+            <td>
+                <a href="{{event.get_absolute_url}}">{{event.name}}</a>
+            </td>
+            <td>
+                {{event.date}}
+            </td>
+            <td>
+                {{event.hours_worked}}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>    
+
+</div>
+
+
+
+{% endblock %}

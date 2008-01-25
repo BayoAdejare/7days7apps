@@ -1,0 +1,21 @@
+{% extends 'mytym/base.html' %}
+
+{% block content %}
+<div class="post">
+    <div class="posthead">
+        <h3>
+            Add an entry. 
+        </h3>
+        Description is not required. All other fields are required.
+    </div>     
+<form action="." method="post">
+    <table>
+        {{form}}
+    </table>
+    <input type="submit" name="Save" value="Save and add another" />
+    <input type="submit" name="Redirect" value="Done" />
+</div>
+
+
+
+{% endblock %}

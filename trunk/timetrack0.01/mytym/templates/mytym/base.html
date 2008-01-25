@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  {% block title %}
+  MyTym - make love, not timesheets.
+  {% endblock %}
+</title>
+
+<link href="/site_media/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="wrap">
+<div id="topbar">
+<h1 id="sitename"><a href="/">My<span>Tym</span></a></h1>
+<div id="topmenu">
+  {% block topmenu %}
+  <ul>
+  <li><a href="/">Home</a></li>
+  {% if user.is_authenticated %}
+  <li><a href="/jobs/">Jobs</a></li>
+  <li><a href="/entries/">Entries</a></li>
+  <li><a href="/accounts/logout/">Logout</a></li>
+  {% else %}
+  <li><a href="/accounts/login/">Login</a></li>
+  <li><a href="/accounts/register/">Register</a></li>
+  {% endif %}
+  </ul>
+  {% endblock %}
+</div>
+</div>
+<div id="header">
+  {% block header %}
+  <h2 id="description">MyTym tracks your time, so that you don't have to.</h2>
+  {% endblock %}
+</div>
+<div id="main">
+
+<div id="content">
+  {% block content %}
+  <div class="post">
+  <div class="posthead">
+  <p class="datebox"><span class="day">28</span><span class="month"> September</span></p>
+  
+  <h2><span>Other</span> Style</h2>
+  </div>
+  <p>
+  Sed blandit, mauris eu convallis dapibus, orci augue luctus nisl, ac sodales dolor enim a metus. Mauris rhoncus, arcu vel viverra aliquet, sapien diam porttitor orci, id luctus sem augue sit amet dui. In vulputate magna in orci. Mauris ac neque ut velit auctor euismod.</p>
+  <code>
+  #wrap #main #content .post ul {
+	  padding: 10px;
+	  list-style-type: none;
+	  margin-left: 15px;
+  }
+  </code>
+  <p> Duis nisi eros, condimentum quis, bibendum nec, pretium a, dui. Proin felis purus, elementum at, sagittis non, euismod at, tortor. Duis ut pede vitae odio facilisis semper. Proin pede. Vestibulum libero. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Fusce auctor, odio ut vulputate fermentum, ante diam tempor augue, in accumsan lectus velit in felis. Phasellus at nulla sit amet magna condimentum elementum. </p>
+  <p class="postinfo">Category | <a href="#">No Comments</a> | <a href="#">Permalink</a></p>
+  <div id="pagination"><a href="#">&laquo; Previous</a><span><a href="#">Next &raquo;</a></span></div>
+  </div>  
+  {% endblock %}
+
+</div>
+
+
+<div id="sidebar">
+  {% block sidebar %}
+  
+<div class="sidebarcontent">
+<div class="sidebarbox">
+  {% block about %}
+  {% if user.is_authenticated %}
+  Howdy, {{user.username}}!
+  {% else %}
+  <form action="/accounts/login/" method="post">
+    <input type="textinput" value="username" name="username" />
+    <input type="password" value="password" name="password" />
+    <input type="submit" value="login" name="submit" />
+  </form>
+  {% endif %}
+  {% endblock %}
+</div>
+<div class="sidebarcol">
+  {% block sidebar1 %}
+<h2>Jobs</h2>
+<ul class="normalmenu">
+  {% for job in recent_jobs %}
+  <li><a href="{{job.get_absolute_url}}">{{job.name}}</a></li> 
+  {% endfor %}
+</ul>
+</div>
+<div class="sidebarcol">
+<h2>Categories</h2>
+<ul class="normalmenu">
+  {% for category in recent_categories %}
+  <li><a href="{{category.get_absolute_url}}">{{category.name}}</a></li>
+  {% endfor %}
+</ul>
+</div>
+<p class="clear2"></p>
+  {% endblock %}
+  
+  {% block sidebar2 %}
+<h2>Actions</h2>
+  <ul class="posts">
+    {% if user.is_authenticated %}
+    <li><a href="/jobs/">
+      View/Add jobs </a></li>
+    <li><a href="/entries/">View/Add entries </a></li>
+    <li><a href="/addentry/">Add detailed entry</a></li>
+    <li><a href="/stats/">See stats</a></li>
+    <li><a href="/accounts/logout/">Logout</a></li>
+    {% else %}
+    <li><a href="/accounts/login/">Login</a></li>
+    <li><a href="/accounts/register/">Register</a></li>
+    {% endif %}
+    </ul>
+  {% endblock %}
+  
+  </div>
+
+
+<div class="sidebarbtm"></div>
+
+</div>
+  {% endblock %}
+<div class="clear"></div>
+
+
+
+</div>
+
+<div id="footer">
+  {% block footer %}
+  <a href="/help/">About</a> | <a href="http://www.7days7apps.com/">7days7apps.com</a> | <a href="http://day1.7days7apps.com/">Day 1</a> | <a href="http://day2.7days7apps.com/">Day 2</a>
+<div id="credit">
+<a href="http://ramblingsoul.com">CSS Template</a> Rambling Soul</div>  
+  {% endblock %}
+
+</div>
+
+</div>
+
+
+</body>
+</html>
