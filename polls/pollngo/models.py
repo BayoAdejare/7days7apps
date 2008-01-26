@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 class Question(models.Model):
     """This class represents a question. It can have 2 or more options."""
-    user = models.ForeignKey(User)
     created_on = models.DateTimeField(auto_now_add = 1)
     title = models.SlugField(max_length = 200)
     slug = models.SlugField(unique = True, max_length = 200)
