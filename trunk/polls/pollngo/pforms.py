@@ -18,7 +18,7 @@ class CreatePoll(forms.Form):
         super(forms.Form, self).__init__(*args, **kwargs)
         
     def save(self):
-        question = models.Question(user = self.request.user, title = self.cleaned_data['question_title'], text = self.cleaned_data['question_text'])
+        question = models.Question(title = self.cleaned_data['question_title'], text = self.cleaned_data['question_text'])
         question.save()
         for field in self.fields:
             if field in ['question_title','question_text']:

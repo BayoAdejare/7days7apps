@@ -11,8 +11,7 @@
 					<h3>{{question.title}}</h3>
                                         <h4>{{question.text}}</h4>
 
-					<div class="date">Asked on {{question.created_on}}</div>
-					<div class="user">Asked by {{question.user.username}}</div>
+					<div class="date">Asked on {{question.created_on|date}}</div>
 				</div>
 				<div class="content">
 					<p>
@@ -32,6 +31,11 @@
                                                 
                                             </ul>
                                         </p>
+                                        {% if total_votes %}
+                                        <p>
+                                                <img src={{chart_url}} />
+                                        </p>
+                                        {% endif %}
 					<p>
 						<a href="{{question.get_absolute_url}}">Back to the poll.</a>
 					</p>

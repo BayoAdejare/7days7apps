@@ -1,10 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-
-	terrafirma1.0 by nodethirtythree design
-	http://www.nodethirtythree.com
-
--->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
@@ -42,6 +36,7 @@
 				
 				<li><a href="/">Home</a></li>
 				<li><a href="/create/">Create</a></li>
+				<li><a href="/help/">About</a></li>
 
 			</ul>
 			{% endblock %}
@@ -105,6 +100,15 @@
 					
 				</ul>
 			</div>
+			<h3>Your Polls</h3>
+			<div class="content">
+				<ul class="linklist">
+					{% for poll in your_polls %}
+					<li class="first"><a href="{{poll.get_absolute_url}}">{{poll.title}}</a></li>
+					{% endfor %}
+					
+				</ul>
+			</div>		
 			{% endblock %}
 			<!-- secondary content end -->
 
@@ -112,7 +116,7 @@
 	
 		<div id="footer">
 			{% block  footer %}
-			<a href="http://www.7days7apps.com/">7days7apps.com</a> | Design by <a href="http://www.nodethirtythree.com/">NodeThirtyThree</a>.
+			<a href="/help/">About</a> | <a href="http://www.7days7apps.com/">7days7apps.com</a> | Design by <a href="http://www.nodethirtythree.com/">NodeThirtyThree</a>.
 			{% endblock %}
 		
 		</div>

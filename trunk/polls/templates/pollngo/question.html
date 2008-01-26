@@ -10,8 +10,7 @@
 					<h3>{{question.title}}</h3>
                                         <h4>{{question.text}}</h4>
 
-					<div class="date">Asked on {{question.created_on}}</div>
-					<div class="user">By {{question.user.username}}</div>
+					<div class="date">Asked on {{question.created_on|date}}</div>
 				</div>
 				<div class="content">
                                     {% if last_choice %}
@@ -29,7 +28,7 @@
                                                 
                                                 </li>
                                                 {% endfor %}
-                                                <input type="submit" value="Submit" name="submit" />
+                                                <input type="submit" value="Answer Poll" name="submit" />
                                             </form>
 
                                                 

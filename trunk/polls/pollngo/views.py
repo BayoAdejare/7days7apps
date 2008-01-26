@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from models import *
 import pforms
+from pygooglechart import PieChart2D
 
 def index(request):
     return render('pollngo/index.html', {}, request)
@@ -46,9 +47,17 @@ def results(request, slug):
     except ObjectDoesNotExist, e:
         raise Http404
     total_votes = 0
+    choice_name = []
+    choice_val = []
     for choice in question.choice_set.all():
         total_votes += choice.total_votes
-    payload = {'question':question, 'total_votes':total_votes}
+        choice_name.append(choice.text)
+        choice_val.append(choice.total_votes)
+    chart = PieChart2D(400, 200)
+    chart.add_data(choice_val)
+    chart.set_pie_labels(choice_name)
+    chart_url = chart.get_url()    
+    payload = {'question':question, 'total_votes':total_votes, 'chart_url':chart_url}
     return render('pollngo/results.html', payload, request)
         
     
@@ -58,16 +67,31 @@ def create(request):
         form = pforms.CreatePoll(request, request.POST)
         if form.is_valid():
             question = form.save()
+            try:
+                questions = request.session['questions']
+            except KeyError, e:
+                questions = []
+            questions.append(question.id)
+            request.session['questions'] = questions
             return HttpResponseRedirect(question.get_absolute_url())
     elif request.method == 'GET':
         form = pforms.CreatePoll(request)
     payload = {'form':form}
     return render('pollngo/create.html', payload, request)
+
+def help(request):
+    payload = {}
+    return render('pollngo/help.html', payload, request)
     
 #Helper methods.
 def render(template_name, payload, request):
     recent_polls = Question.objects.all()[:8]
-    payload.update({'recent_polls':recent_polls})
+    try:
+        questions = request.session['questions']
+    except KeyError, e:
+        questions = []
+    your_polls = Question.objects.filter(id__in = questions)
+    payload.update({'recent_polls':recent_polls, 'your_polls':your_polls})
     return render_to_response(template_name, payload, RequestContext(request))
     
 
