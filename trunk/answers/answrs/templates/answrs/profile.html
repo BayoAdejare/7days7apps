@@ -1,0 +1,17 @@
+{% extends 'answrs/base.html' %}
+
+{% load thumbnail %}
+
+{% block content %}
+<h2>{{user.username}}</h2>
+
+<form action="." method="post" enctype="multipart/form-data">
+    
+    <fieldset>
+        <img src="/site_media/uploads/{% thumbnail user.get_profile.get_pic_url 100x100 autocrop,upscale %}" />
+        <legend>Change Picture</legend>
+    {{form.as_p}}
+    <input type="submit" value="Change picture" name="changepic" />
+    </fieldset>
+</form>
+{% endblock %}
