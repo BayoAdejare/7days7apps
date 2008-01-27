@@ -1,0 +1,51 @@
+{% extends 'answrs/base.html' %}
+
+{% block content %}
+<p class="question">
+<h2>{{question.title}}</h2>
+<div class="rightdiv">
+    Asked by {{question.user.username}}
+    on {{question.created_on|date}}
+    in <a href="{{question.category.get_absolute_url}}">{{question.category}}</a>
+</div>
+{% ifequal user question.user %}
+{% if question.is_open %}
+    <a href="{{question.closing_url}}">Close question</a>
+{% endif %}
+{% endifequal %}
+<blockquote>
+<br />
+{{question.description|linebreaks}}
+</blockquote>
+</p>
+{% if question.is_open %}
+<form method="post" action=".">
+    <fieldset>
+        <legend>Answer this question</legend>
+    {{form.as_p}}
+    <input type="submit" value="Answer" name=ask"" />
+    </fieldset>
+</form>
+{% else %}
+<h3>
+    Question has been closed
+</h3>
+{% endif %}
+{% for answer in answers %}
+    <p>
+        {{answer.text|linebreaks}}
+    </p>
+    <p class="postmetadata">
+    {% if answer.is_best %}
+    <span class="best">Best Answer</span>
+    {% endif %}        
+       Answered by <a href="/profile/{{user.username}}/">{{answer.user.username}}</a> on {{answer.created_on|date}}
+{% ifequal user question.user %}
+{% if not question.best_answer %}
+    <a href="{{answer.bestify_url}}">Bestify question</a>
+{% endif %}
+{% endifequal %}       
+    </p>
+{% endfor %}
+
+{% endblock %}
