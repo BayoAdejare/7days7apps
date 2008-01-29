@@ -1,0 +1,26 @@
+{% extends "kamp/base.html" %}
+
+{% block title %}
+{{block.super}} - Dashboard
+{% endblock %}
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">{{project.name}}</h1>
+			<div>
+				<form action="." method="post">
+					{{form.as_p}}
+					<input type="submit" name="todoadd" value="Add todo"</a>
+				</form>
+			</div>
+			<div class="entry">
+				{% for chat in chats %}
+				<div class="text">
+				{{chat.text}}
+				</div>
+				{% endfor %}
+			</div>			
+		
+		</div>		
+{% endblock %}
+
