@@ -1,0 +1,32 @@
+{% extends "kamp/base.html" %}
+
+{% block title %}
+{{block.super}} - {{project.name}} - Chat
+{% endblock %}
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">{{project.name}}</h1>
+			<div>
+				<form action="." method="post">
+				<fieldset>
+					<legend>Start Chatting</legend>
+					{{form.as_p}}
+					<input type="submit" name="todoadd" value="Add todo"</a>
+				</fieldset>
+				</form>
+			</div>
+			<div class="entry">
+				{% for chat in chats %}
+				<div class="{% cycle 'odd' 'even' %}">
+				{{chat.text|linebreaks}}
+				<br />
+				<span class="info">
+				said {{chat.user.username}} on {{chat.created_on|date}}
+				</div>
+				{% endfor %}
+			</div>			
+		
+		</div>		
+{% endblock %}
+

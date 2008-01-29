@@ -1,0 +1,46 @@
+{% extends "kamp/base.html" %}
+
+{% block title %}
+{{block.super}} - {{project.name}}
+{% endblock %}
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">{{project.name}}</h1>
+		
+			<div class="entry">
+				<h2>Coming todo item</h2>
+				<ul>
+				{% for item in todo_items %}
+					<li>
+					{{item.item}}
+					</li>
+				{% endfor %}
+				</ul>
+			<a href="{{project.todo_url}}">more</a>
+			</div>	
+			<div class="entry">
+				<h2>Coming milestones</h2>
+				<ul>
+				{% for milestone in milestones %}
+					<li>
+						{{milestone.name}}
+					</li>
+				{% endfor %}
+				</ul>
+			<a href="{{project.milestones_url}}">more</a>
+			</div>
+			<div class="entry">
+				<form action="." method="post">
+					<fieldset>
+					<legend>Add user to project
+					</legend>						
+					{{form.as_p}}
+					<input type="submit" name="invite" value="Invite User"</a>
+					</fieldset>
+				</form>
+			</div>			
+		
+		</div>		
+{% endblock %}
+

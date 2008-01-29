@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Title      : Boorish
+Version    : 1.0
+Released   : 20080123
+Description: A wide two-column design suitable for blogs and small websites.
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>
+	{% block title %}
+	Kasekamp
+	{% endblock %}
+</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="/site_media/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+	{% block logo %}
+		<h1><a href="/">KaseKamp</a></h1>
+		<h2>Plans your projects.</h2>	
+	{% endblock %}		
+	</div>
+	<div id="menu">
+		{% block mainnav %}
+		<ul>
+			<li class="current_page_item"><a href="{{projset.get_absolute_url}}">Dashboard</a></li>
+			<li><a href="{{project.get_absolute_url}}">Project</a></li>
+			<li><a href="{{project.todo_url}}">Todo Items</a></li>
+			<li><a href="{{project.milestones_url}}">Milestones</a></li>
+			<li><a href="{{project.chat_url}}">Chat</a></li>
+		
+		</ul>		
+		{% endblock %}
+	</div>
+</div>
+<!-- end header -->
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="content">
+		{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">Welcome to Our Website!</h1>
+			<p class="meta"><small>Posted by Admin on August 3, 2007<br />
+				Filed under <a href="#">Uncategorized</a> | <a href="#">Comments (12)</a></small></p>
+			<div class="entry">
+				<p>This is <strong>Boorish</strong>, a free, fully standards-compliant CSS template designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>. This free template is released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attributions 2.5</a> license, so you're pretty much free to do whatever you want with it (even use it commercially) provided you keep the links in the footer intact. Aside from that, have fun with it :)</p>
+				<p>This template is also available as a <a href="http://www.freewpthemes.net/preview/Boorish/">WordPress theme</a> at <a href="http://www.freewpthemes.net/">Free WordPress Themes</a>.</p>
+				<h2>Sample Tags</h2>
+				<blockquote>
+					<p>&#8220;A blockquoted paragraph. In posuere eleifend odio quisque semper augue mattis wisi maecenas ligula.&#8221;</p>
+				</blockquote>
+				<p>An example of an ordered list:</p>
+				<ol>
+					<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+					<li>Phasellus nec erat sit amet nibh pellentesque congue.</li>
+					<li>Cras vitae metus aliquam risus pellentesque pharetra.</li>
+				</ol>
+				<h3>Heading Level 3: Followed by an Unordered List</h3>
+				<ul>
+					<li>Cras vitae metus aliquam risus pellentesque pharetra.</li>
+					<li>Maecenas vitae orci vitae tellus feugiat eleifend.</li>
+					<li>Etiam ac tortor eu metus euismod lobortis</li>
+				</ul>
+				<p>&nbsp;</p>
+			</div>
+		</div>		
+		{% endblock %}
+		<!-- start latest-post -->
+		<!-- end latest-post -->
+		<!-- start recent-posts -->
+		<div id="recent-posts">
+			<div class="post">
+				<h2 class="title">Howdy {{user.username}}</h2>
+				<h2 class="title">Meta</h2>
+				<div class="entry">
+					{% if user.is_authenticated %}
+					<p><a href="/accounts/logout/">Logout</a></p>
+					<p><a href="/accounts/profile/">Profile</a></p>
+					{% else %}
+					<p><a href="/accounts/login/">Login</a></p>
+					<p><a href="/accounts/create/">Register</a></p>
+					{% endif %}
+				</div>
+			</div>			
+			{% block extracontent %}
+			<div class="post">
+				<h2 class="title">Recent Activity</h2>
+				<div class="entry">
+				{% for activity in activities %}
+					<p>{{activity.text}}</p>
+				{% endfor %}
+				</div>
+			</div>		
+			{% endblock %}
+		</div>
+		<!-- end recent-posts -->
+	</div>
+	<!-- end content -->
+	<!-- start sidebar -->
+	<div id="sidebar">
+		{% block bottomcontent %}
+		{% endblock %}
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	<!-- end sidebar -->
+</div>
+<!-- end page -->
+<div id="footer">
+	{% block footer %}
+	<p id="legal">&copy;2007 Boorish. All Rights Reserved. | Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+	<p id="links"><a href="http://www.7days7apps.com/">7daysapps.com</a> | <a href="/about/">about</a> </p> 
+	{% endblock %}
+</div>
+</body>
+</html>
