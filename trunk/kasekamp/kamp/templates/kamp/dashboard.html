@@ -1,0 +1,29 @@
+{% extends "kamp/base.html" %}
+
+{% block title %}
+{{block.super}} - Dashboard
+{% endblock %}
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">Dashboard</h1>
+			<div class="entry">
+                        <ul>
+			{% for project in projects %}
+			<li>
+				<a href="{{project.get_absolute_url}}">{{project.name}}</a>
+			</li>
+                        {% endfor %}
+			</ul>
+			</div>
+		
+			<div class="entry">
+				<form action="." method="post">
+					{{form.as_p}}
+					<input type="submit" name="create" value="Create Project" />
+				</form>
+			</div>		
+		
+		</div>		
+{% endblock %}
+

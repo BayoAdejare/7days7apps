@@ -1,0 +1,84 @@
+{% extends "kamp/base.html" %}
+
+{% block title %}
+{{block.super}} - Dashboard
+{% endblock %}
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">{{project.name}}</h1>
+		
+			<div class="entry">
+				<h2>Coming todo item</h2>
+				<form action="." method="post">
+				<table>
+				<tr>
+					<th>
+						Item
+					</th>
+					<th>
+						Responsible Person
+					</th>
+					<th>
+						Markdone
+					</th>
+				
+				</tr>
+				{% for item in todo_items %}
+				<tr>
+				<td>
+				{{item.item}}
+				</td>
+				<td>
+				{{item.user.username}}
+				</td>				
+				<td>
+				<input type="CHECKBOX" name="markdone" value="{{item.id}}" onclick="submit()" />
+				</td>
+				</tr>
+				{% endfor %}
+				</table>
+				</form>
+			</div>
+			<div>
+				<form action="." method="post">
+					{{form.as_p}}
+					<input type="submit" name="todoadd" value="Add todo"</a>
+				</form>
+			</div>
+			<div class="entry">
+				<h2>Completed todo item</h2>
+				<form action="." method="post">
+				<table>
+				<tr>
+					<th>
+						Item
+					</th>
+					<th>
+						Responsible Person
+					</th>
+					<th>
+						Mark in progress
+					</th>
+				
+				</tr>					
+				{% for item in todo_items_done %}
+				<tr>
+				<td>
+				{{item.item}}
+				</td>
+				<td>
+				{{item.user.username}}
+				</td>				
+				<td>
+				<input type="CHECKBOX" name="markundone" value="{{item.id}}" onclick="submit()" />
+				</td>
+				</tr>
+				{% endfor %}
+				</table>
+				</form>
+			</div>			
+		
+		</div>		
+{% endblock %}
+

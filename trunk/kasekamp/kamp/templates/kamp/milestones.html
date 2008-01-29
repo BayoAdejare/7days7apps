@@ -1,0 +1,82 @@
+{% extends "kamp/base.html" %}
+
+{% block title %}
+{{block.super}} - Dashboard
+{% endblock %}
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">{{project.name}}</h1>
+		
+			<div class="entry">
+				<h2>Coming Milestones</h2>
+				<form action="." method="post">
+				<table>
+				<tr>
+					<th>
+						Milestone
+					</th>
+					<th>
+						Due on
+					</th>
+					<th>
+						Mark Done
+					</th>
+				
+				</tr>					
+				{% for stone in milestones %}
+				<tr>
+					<td>{{stone.name}}</td>
+					<td>{{stone.due_on|date}}</td>
+					<td>
+						<input type="CHECKBOX" name="markdone" value="{{item.id}}" onclick="submit()" />						
+					</td>
+				</tr>
+				{% endfor %}
+				</table>
+				</form>
+			</div>
+			<div>
+				<form action="." method="post">
+					{{form.as_p}}
+					<input type="submit" name="todoadd" value="Add todo"</a>
+				</form>
+			</div>
+			<div class="entry">
+				{% for stone in milestones_reached %}
+				{{stone.name}}
+				{% endfor %}
+			</div>
+		
+			<div class="entry">
+				<h2>Completed Milestones</h2>
+				<form action="." method="post">
+				<table>
+				<tr>
+					<th>
+						Milestone
+					</th>
+					<th>
+						Due on
+					</th>
+					<th>
+						Mark in Progress
+					</th>
+				
+				</tr>						
+				{% for stone in milestones_reached %}
+				<tr>
+					<td>{{stone.name}}</td>
+					<td>{{stone.due_on|date}}</td>
+					<td>
+						<input type="CHECKBOX" name="markundone" value="{{item.id}}" onclick="submit()" />						
+					</td>
+				</tr>
+				{% endfor %}
+				</table>
+				</form>
+			</div>		
+		
+		</div>		
+{% endblock %}
+

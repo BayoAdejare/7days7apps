@@ -1,0 +1,23 @@
+{% extends "registration/base.html" %}
+
+{% block title %}
+{{block.super}} - Login
+{% endblock %}
+
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			<h1 class="title">Create a new user, and get planned now.</h1>
+			<div class="entry">
+{% if form.has_errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action=".">
+{{form.as_p}}
+<input name="Submit" type="submit" class="button" value="Regsiter" />
+</form>
+				<p>&nbsp;</p>
+			</div>
+		</div>		
+{% endblock %}
