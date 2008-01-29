@@ -1,0 +1,39 @@
+{% extends "registration/base.html" %}
+
+{% block title %}
+{{block.super}} - {{user.username}} - Profile1
+{% endblock %}
+
+{% block maincontent %}
+		<div id="latest-post" class="post">
+			
+			<div class="entry">
+				
+			<h2 class="title">Your Projects</h2>
+			<ul>
+                            {% for project in projects %}
+                               <li> <a href="{{project.get_absolute_url}}">{{project.name}}</a></li>
+                            {% endfor %}
+			</ul>
+			</div>
+			<h2 class="title">Pending Invites</h2>
+			<form action="." method="post">
+			<table>
+                               <tr>
+				<td>	Project Name</a></td>
+			       <td> Accept</td>
+			       <td> Decline </td>
+				</tr>				
+                            {% for project in invited_to %}
+                               <tr>
+				<td>	<a href="{{project.get_absolute_url}}">{{project.name}}</a></td>
+			       <td> <input type="CHECKBOX" name="accept" value="{{project.id}}" onclick="submit()" /> </td>
+			       <td> <input type="CHECKBOX" name="decline" value="{{project.id}}" onclick="submit()" /> </td>
+				</tr>
+                            {% endfor %}
+			</table>
+			</form>
+			</div>		
+		</div>		
+{% endblock %}
+
